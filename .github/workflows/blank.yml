@@ -6,6 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       # 1️⃣ Clone example
       - name: Checkout pico-examples
@@ -14,12 +15,13 @@ jobs:
           repository: raspberrypi/pico-examples
           path: pico-examples
 
-      # 2️⃣ Clone SDK
+      # 2️⃣ Clone SDK (WITH submodules)
       - name: Checkout pico-sdk
         uses: actions/checkout@v4
         with:
           repository: raspberrypi/pico-sdk
           path: pico-sdk
+          submodules: recursive
 
       # 3️⃣ Install toolchain + CMake
       - name: Install CMake + ARM Toolchain
@@ -33,8 +35,8 @@ jobs:
           export PICO_SDK_PATH=$GITHUB_WORKSPACE/pico-sdk
           mkdir -p pico-examples/build
           cd pico-examples/build
-          cmake ../blink -DPICO_BOARD=raspberrypi_pico
-          make -j$(nproc)
+          cmake ../blink/blink -DPICO_BOARD=raspberrypi_pico
+          cmake --build . -j$(nproc)
 
       # 5️⃣ Upload UF2 artifact
       - name: Upload UF2

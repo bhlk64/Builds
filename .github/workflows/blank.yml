@@ -14,7 +14,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        submodules: true  # Nếu bạn dùng submodule cho pico-sdk
+        submodules: recursive
 
     - name: Install dependencies
       run: |
@@ -23,7 +23,7 @@ jobs:
 
     - name: Set PICO_SDK_PATH
       run: echo "PICO_SDK_PATH=${GITHUB_WORKSPACE}/pico-sdk" >> $GITHUB_ENV
-
+  
     - name: Create build directory
       run: mkdir -p build
 

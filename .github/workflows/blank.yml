@@ -32,11 +32,11 @@ jobs:
       # 4️⃣ Build blink example
       - name: Build blink example
         run: |
-          export PICO_SDK_PATH=$GITHUB_WORKSPACE/pico-sdk
-          mkdir -p pico-examples/build
-          cd pico-examples/build
-          cmake ../blink/blink -DPICO_BOARD=raspberrypi_pico
-          cmake --build . -j$(nproc)
+         export PICO_SDK_PATH=$GITHUB_WORKSPACE/pico-sdk
+         mkdir -p pico-examples/build
+         cd pico-examples/build
+         cmake .. -DPICO_BOARD=raspberrypi_pico
+         cmake --build . -j$(nproc)
 
       # 5️⃣ Upload UF2 artifact
       - name: Upload UF2

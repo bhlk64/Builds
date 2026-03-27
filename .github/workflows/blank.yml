@@ -1,52 +1,43 @@
-name: RP2040 Blink Build
+name: Build Blink UF2
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Clone example
-      - name: Checkout pico-examples
-        uses: actions/checkout@v4
-        with:
-          repository: raspberrypi/pico-examples
-          path: pico-examples
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: true  # Nếu bạn dùng submodule cho pico-sdk
 
-      # 2️⃣ Clone SDK
-      - name: Checkout pico-sdk
-        uses: actions/checkout@v4
-        with:
-          repository: raspberrypi/pico-sdk
-          path: pico-sdk
-          submodules: recursive
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y gcc-arm-none-eabi cmake build-essential python3
 
-      # ✅ FIX: đảm bảo submodules đầy đủ
-      - name: Update submodules
-        run: |
-          cd pico-sdk
-          git submodule update --init --recursive
+    - name: Set PICO_SDK_PATH
+      run: echo "PICO_SDK_PATH=${GITHUB_WORKSPACE}/pico-sdk" >> $GITHUB_ENV
 
-      # 3️⃣ Install toolchain + CMake
-      - name: Install CMake + ARM Toolchain
-        run: |
-          sudo apt update
-          sudo apt install -y cmake gcc-arm-none-eabi build-essential
+    - name: Create build directory
+      run: mkdir -p build
 
-      # 4️⃣ Build blink example
-      - name: Build blink example
-        run: |
-         export PICO_SDK_PATH=$GITHUB_WORKSPACE/pico-sdk
-         mkdir -p pico-examples/build
-         cd pico-examples/build
-         cmake .. -DPICO_BOARD=raspberrypi_pico
-         cmake --build . -j$(nproc)
+    - name: Run CMake
+      working-directory: build
+      run: cmake ..
 
-      # 5️⃣ Upload UF2 artifact
-      - name: Upload UF2
-        uses: actions/upload-artifact@v4
-        with:
-          name: blink-uf2
-          path: pico-examples/build/blink/blink.uf2
+    - name: Build blink.uf2
+      working-directory: build
+      run: make -j$(nproc)
+
+    - name: Upload blink.uf2 artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: blink-uf2
+        path: build/blink.uf2
+

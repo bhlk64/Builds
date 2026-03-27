@@ -1,0 +1,32 @@
+name: RP2040 Blink Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout pico-examples
+        uses: actions/checkout@v4
+        with:
+          repository: raspberrypi/pico-examples
+          path: pico-examples
+
+      - name: Install CMake + Toolchain
+        run: |
+          sudo apt update
+          sudo apt install -y cmake gcc-arm-none-eabi build-essential
+
+      - name: Build blink example
+        run: |
+          mkdir -p pico-examples/build/blink
+          cd pico-examples/build/blink
+          cmake ../../blink -DPICO_BOARD=raspberrypi_pico
+          make -j4
+
+      - name: Upload UF2
+        uses: actions/upload-artifact@v3
+        with:
+          name: blink-uf2
+          path: pico-examples/build/blink/blink.uf2

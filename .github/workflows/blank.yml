@@ -29,6 +29,9 @@ jobs:
 
     - name: List pico-sdk
       run: ls -R ${GITHUB_WORKSPACE}/pico-sdk
+    
+    - name: Clone Pico SDK
+      run: git clone https://github.com/raspberrypi/pico-sdk.git $GITHUB_WORKSPACE/pico-sdk
 
     - name: Run CMake
       working-directory: build

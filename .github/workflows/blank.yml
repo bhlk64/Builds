@@ -2,8 +2,7 @@ name: Build Blink UF2
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
 
 jobs:
@@ -13,8 +12,6 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-      with:
-        submodules: recursive
 
     - name: Install dependencies
       run: |
@@ -22,30 +19,28 @@ jobs:
         sudo apt install -y gcc-arm-none-eabi cmake build-essential python3
 
     - name: Clone Pico SDK
-      run: git clone https://github.com/raspberrypi/pico-sdk.git $GITHUB_WORKSPACE/pico-sdk
-      
+      run: |
+        git clone https://github.com/raspberrypi/pico-sdk.git
+        cd pico-sdk
+        git submodule update --init
 
     - name: Set PICO_SDK_PATH
-      run: echo "PICO_SDK_PATH=${GITHUB_WORKSPACE}/pico-sdk" >> $GITHUB_ENV
-  
-    - name: Create build directory
-      run: mkdir -p build
+      run: echo "PICO_SDK_PATH=$GITHUB_WORKSPACE/pico-sdk" >> $GITHUB_ENV
 
-    - name: List pico-sdk
-      run: ls -R ${GITHUB_WORKSPACE}/pico-sdk
-    
+    - name: Debug SDK path
+      run: |
+        echo $PICO_SDK_PATH
+        ls $PICO_SDK_PATH
 
-    - name: Run CMake
-      working-directory: build
-      run: cmake ..
+    - name: Build
+      run: |
+        mkdir build
+        cd build
+        cmake .. -DPICO_SDK_PATH=$PICO_SDK_PATH
+        make -j$(nproc)
 
-    - name: Build blink.uf2
-      working-directory: build
-      run: make -j$(nproc)
-
-    - name: Upload blink.uf2 artifact
+    - name: Upload UF2
       uses: actions/upload-artifact@v4
       with:
         name: blink-uf2
-        path: build/blink.uf2
-
+        path: build/*.uf2

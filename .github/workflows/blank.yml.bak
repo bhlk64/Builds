@@ -27,9 +27,6 @@ jobs:
     - name: Create build directory
       run: mkdir -p build
 
-    - name: List pico-sdk
-      run: ls -R ${GITHUB_WORKSPACE}/pico-sdk
-
     - name: Run CMake
       working-directory: build
       run: cmake ..

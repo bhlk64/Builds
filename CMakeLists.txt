@@ -22,6 +22,7 @@ foreach(src ${APP_SOURCES})
         pico_stdlib
         hardware_spi
         FatFs_SPI
+        hw_config.c
     )
 
     pico_enable_stdio_usb(${name} 1)

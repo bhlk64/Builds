@@ -10,12 +10,14 @@ pico_sdk_init()
 file(GLOB SRC_FILES "*.c")
 
 foreach(src ${SRC_FILES})
-    # lấy tên file (không có .c)
     get_filename_component(name ${src} NAME_WE)
 
     add_executable(${name} ${src})
 
-    target_link_libraries(${name} pico_stdlib)
+    target_link_libraries(${name} 
+        pico_stdlib
+        hardware_spi
+    )
 
     pico_enable_stdio_usb(${name} 1)
     pico_enable_stdio_uart(${name} 0)

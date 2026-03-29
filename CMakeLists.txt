@@ -10,7 +10,7 @@ pico_sdk_init()
 file(GLOB APP_SOURCES "*.c")
 
 # 🔥 FatFS + SD driver
-file(GLOB FATFS_SRC "lib/fatfs/*.c")
+add_subdirectory(lib/fatfs/FatFs_SPI)
 
 foreach(src ${APP_SOURCES})
     get_filename_component(name ${src} NAME_WE)
@@ -22,6 +22,7 @@ foreach(src ${APP_SOURCES})
     target_link_libraries(${name}
         pico_stdlib
         hardware_spi
+        FatFs_SPI
     )
 
     pico_enable_stdio_usb(${name} 1)

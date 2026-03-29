@@ -2,6 +2,7 @@
 #include "pico/stdlib.h"
 #include "hardware/spi.h"
 #include "ff.h"
+#include "hw_config.h"
 
 #define SPI_PORT spi0
 #define PIN_MISO 16

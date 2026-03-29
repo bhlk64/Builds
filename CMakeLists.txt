@@ -7,7 +7,8 @@ project(multi_project)
 pico_sdk_init()
 
 # 🔥 add FatFS lib
-add_subdirectory(lib/fatfs/FatFs_SPI)
+add_subdirectory(fatfs/FatFs_SPI)
+# add_subdirectory(fatfs/example)
 
 # 🔥 App sources
 file(GLOB APP_SOURCES "*.c")

@@ -22,16 +22,10 @@ jobs:
         sudo apt install -y gcc-arm-none-eabi cmake build-essential python3
         sudo apt install -y libnewlib-arm-none-eabi
         sudo apt install -y binutils-arm-none-eabi
-
-    - name: Clone Pico SDK
-      run: |
-        git clone https://github.com/raspberrypi/pico-sdk.git
-        cd pico-sdk
-        git submodule update --init
     
     - name: Clone FatFS
       run: |
-        git clone https://github.com/carlk3/no-OS-FatFS-SD-SPI-RPi-Pico.git lib/fatfs
+        git clone https://github.com/carlk3/no-OS-FatFS-SD-SPI-RPi-Pico.git
 
     - name: Set PICO_SDK_PATH
       run: echo "PICO_SDK_PATH=$GITHUB_WORKSPACE/pico-sdk" >> $GITHUB_ENV

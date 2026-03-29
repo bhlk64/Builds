@@ -16,13 +16,15 @@ file(GLOB APP_SOURCES "*.c")
 foreach(src ${APP_SOURCES})
     get_filename_component(name ${src} NAME_WE)
 
-    add_executable(${name} ${src})
+    add_executable(${name}
+        ${src}
+        hw_config.c
+    )
 
     target_link_libraries(${name}
         pico_stdlib
         hardware_spi
         FatFs_SPI
-        hw_config.c
     )
 
     pico_enable_stdio_usb(${name} 1)

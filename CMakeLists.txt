@@ -6,18 +6,16 @@ project(multi_project)
 
 pico_sdk_init()
 
-# 🔥 App sources (blink.c, sdcard.c,...)
-file(GLOB APP_SOURCES "*.c")
-
-# 🔥 FatFS + SD driver
+# 🔥 add FatFS lib
 add_subdirectory(lib/fatfs/FatFs_SPI)
+
+# 🔥 App sources
+file(GLOB APP_SOURCES "*.c")
 
 foreach(src ${APP_SOURCES})
     get_filename_component(name ${src} NAME_WE)
 
-    add_executable(${name} ${src} ${FATFS_SRC})
-
-    target_include_directories(${name} PRIVATE lib/fatfs)
+    add_executable(${name} ${src})
 
     target_link_libraries(${name}
         pico_stdlib

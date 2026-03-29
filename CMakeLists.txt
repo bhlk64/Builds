@@ -6,19 +6,19 @@ project(multi_project)
 
 pico_sdk_init()
 
-# 🔥 add FatFS lib
 add_subdirectory(fatfs/FatFs_SPI)
-# add_subdirectory(fatfs/example)
 
-# 🔥 App sources
 file(GLOB APP_SOURCES "*.c")
+
+# 🔥 tránh build hw_config thành app
+list(REMOVE_ITEM APP_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/hw_config.c)
 
 foreach(src ${APP_SOURCES})
     get_filename_component(name ${src} NAME_WE)
 
     add_executable(${name}
         ${src}
-        hw_config.c
+        hw_config.c   # 🔥 quan trọng
     )
 
     target_link_libraries(${name}

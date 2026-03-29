@@ -17,7 +17,6 @@ jobs:
       run: |
         sudo apt update
         sudo apt install -y gcc-arm-none-eabi cmake build-essential python3
-        sudo apt install -y libnewlib-arm-none-eabi
 
     - name: Clone Pico SDK
       run: |

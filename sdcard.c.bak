@@ -37,20 +37,3 @@ int main() {
     fr = f_open(&fil, "hello.txt", FA_WRITE | FA_CREATE_ALWAYS);
 
     if (fr == FR_OK) {
-        const char *text = "hello from RP2040 😎\n";
-
-        fr = f_write(&fil, text, strlen(text), &bw);
-
-        if (fr == FR_OK) {
-            printf("Write OK (%d bytes)\n", bw);
-        } else {
-            printf("Write fail\n");
-        }
-
-        f_close(&fil);
-    } else {
-        printf("Open fail\n");
-    }
-
-    while (1);
-}

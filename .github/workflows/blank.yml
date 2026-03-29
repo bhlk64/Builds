@@ -26,10 +26,7 @@ jobs:
         sudo apt install -y binutils-arm-none-eabi
     
 
-    - name: Set PICO_SDK_PATH
-      run: echo "PICO_SDK_PATH=pico-sdk" >> $GITHUB_ENV
-
-    - name: Debug SDK path
+    - name: Debug
       run: |
         echo $PICO_SDK_PATH
         ls $PICO_SDK_PATH

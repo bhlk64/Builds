@@ -44,3 +44,12 @@ jobs:
       with:
         name: blink-uf2
         path: build/*.uf2
+    
+    - name: Create Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: build-${{ github.run_number }}
+        name: Auto Build ${{ github.run_number }}
+        files: build/*.uf2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

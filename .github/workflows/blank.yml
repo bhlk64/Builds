@@ -38,7 +38,7 @@ jobs:
         cd build
         cmake .. -DPICO_SDK_PATH=$GITHUB_WORKSPACE/pico-sdk
         make -j$(nproc)
-        ls -R build
+        
 
     - name: Upload UF2
       uses: actions/upload-artifact@v4

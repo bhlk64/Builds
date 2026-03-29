@@ -36,7 +36,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake .. -DPICO_SDK_PATH=pico-sdk
+        cmake .. -DPICO_SDK_PATH=$GITHUB_WORKSPACE/pico-sdk
         make -j$(nproc)
         ls -R build
 

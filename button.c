@@ -17,5 +17,6 @@ int main() {
         } else {
             gpio_put(LED_PIN, 0);
         }
+        sleep_ms(100);
     }
 }

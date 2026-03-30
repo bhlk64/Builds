@@ -9,7 +9,7 @@ int main() {
     
     gpio_init(BTN_PIN);
     gpio_set_dir(BTN_PIN, GPIO_IN);
-    gpio_pull_down(BTN_PIN); // đảm bảo không bập bùng
+    gpio_pull_up(BTN_PIN); // đảm bảo không bập bùng
 
     while(1) {
         if(gpio_get(BTN_PIN)) {

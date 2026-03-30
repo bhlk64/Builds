@@ -4,3 +4,6 @@
 [submodule "pico-sdk"]
 	path = pico-sdk
 	url = https://github.com/raspberrypi/pico-sdk.git
+[submodule "HD44780_PCF8574"]
+	path = HD44780_PCF8574
+	url = https://github.com/Matiasus/HD44780_PCF8574.git

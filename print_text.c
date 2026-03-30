@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "hardware/i2c.h"
-#include "lib/hd44780pcf8574.h"
+#include "HD44780_PCF8574/lib/hd44780pcf8574.h"
 
 #define I2C_PORT i2c0
 #define SDA_PIN 4

@@ -19,14 +19,14 @@ foreach(src ${APP_SOURCES})
     add_executable(${name}
         ${src}
         hw_config.c   # 🔥 quan trọng
-        HD44780_PCF8574/lib/hd44780pcf8574.c
+        # HD44780_PCF8574/lib/hd44780pcf8574.c
     )
 
     target_link_libraries(${name}
         pico_stdlib
         hardware_spi
         FatFs_SPI
-        hardware_i2c
+        # hardware_i2c
     )
 
     pico_enable_stdio_usb(${name} 1)

@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "ff.h"
+#include "hw_config.h"
 
 void fail(int f) {
     while (f) {

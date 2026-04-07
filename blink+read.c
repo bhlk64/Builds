@@ -5,7 +5,7 @@
 #include "ff.h"
 #include "hw_config.h"
 
-#define LED_PIN 25;
+#define LED_PIN 25
 
 void fail(int f) {
     while (f) {

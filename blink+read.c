@@ -5,6 +5,8 @@
 #include "ff.h"
 #include "hw_config.h"
 
+#define LED_PIN 25;
+
 void fail(int f) {
     while (f) {
         gpio_put(LED_PIN, 1);
@@ -17,7 +19,6 @@ void fail(int f) {
 }
 
 int main() {
-    const uint LED_PIN = 25;  // onboard LED
     gpio_init(LED_PIN);
     gpio_set_dir(LED_PIN, GPIO_OUT);
     

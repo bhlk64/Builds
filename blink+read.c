@@ -1,4 +1,5 @@
 #include "pico/stdlib.h"
+#include <stdio.h>
 
 int main() {
     const uint LED_PIN = 25;  // onboard LED
